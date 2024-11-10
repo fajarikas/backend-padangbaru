@@ -1,14 +1,14 @@
 <?php
-namespace App\Filament\Resources\AnnouncementResource\Api\Handlers;
+namespace App\Filament\Resources\SocialMediaResource\Api\Handlers;
 
 use Illuminate\Http\Request;
 use Rupadana\ApiService\Http\Handlers;
 use Spatie\QueryBuilder\QueryBuilder;
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\SocialMediaResource;
 
 class PaginationHandler extends Handlers {
     public static string | null $uri = '/';
-    public static string | null $resource = AnnouncementResource::class;
+    public static string | null $resource = SocialMediaResource::class;
 
 
     public function handler()

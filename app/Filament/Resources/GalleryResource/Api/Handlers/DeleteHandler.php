@@ -1,17 +1,17 @@
 <?php
-namespace App\Filament\Resources\AnnouncementResource\Api\Handlers;
+namespace App\Filament\Resources\GalleryResource\Api\Handlers;
 
 use Illuminate\Http\Request;
 use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\GalleryResource;
 
-class UpdateHandler extends Handlers {
+class DeleteHandler extends Handlers {
     public static string | null $uri = '/{id}';
-    public static string | null $resource = AnnouncementResource::class;
+    public static string | null $resource = GalleryResource::class;
 
     public static function getMethod()
     {
-        return Handlers::PUT;
+        return Handlers::DELETE;
     }
 
     public static function getModel() {
@@ -26,10 +26,8 @@ class UpdateHandler extends Handlers {
 
         if (!$model) return static::sendNotFoundResponse();
 
-        $model->fill($request->all());
+        $model->delete();
 
-        $model->save();
-
-        return static::sendSuccessResponse($model, "Successfully Update Resource");
+        return static::sendSuccessResponse($model, "Successfully Delete Resource");
     }
 }

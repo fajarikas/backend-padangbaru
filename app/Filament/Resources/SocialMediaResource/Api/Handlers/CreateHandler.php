@@ -1,13 +1,13 @@
 <?php
-namespace App\Filament\Resources\AnnouncementResource\Api\Handlers;
+namespace App\Filament\Resources\SocialMediaResource\Api\Handlers;
 
 use Illuminate\Http\Request;
 use Rupadana\ApiService\Http\Handlers;
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\SocialMediaResource;
 
 class CreateHandler extends Handlers {
     public static string | null $uri = '/';
-    public static string | null $resource = AnnouncementResource::class;
+    public static string | null $resource = SocialMediaResource::class;
 
     public static function getMethod()
     {

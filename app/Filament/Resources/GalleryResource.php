@@ -2,23 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AnnouncementResource\Pages;
-use App\Filament\Resources\AnnouncementResource\RelationManagers;
-use App\Models\Announcement;
+use App\Filament\Resources\GalleryResource\Pages;
+use App\Filament\Resources\GalleryResource\RelationManagers;
+use App\Models\Gallery;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AnnouncementResource extends Resource
+class GalleryResource extends Resource
 {
-    protected static ?string $model = Announcement::class;
+    protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,15 +27,16 @@ class AnnouncementResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('alt')
                     ->label('Judul')
                     ->required()
                     ->columnSpan('full'),
-                FileUpload::make('detail')
-                    ->label('Pengumuman')
+                FileUpload::make('picture')
+                    ->label('Gambar')
                     ->disk('public')
                     ->preserveFilenames()
-                    ->directory('uploads/announcement')
+                    ->directory('uploads/gallery')
+                    ->acceptedFileTypes(['image/*'])
                     ->required()
                     ->columnSpan('full')
             ]);
@@ -44,13 +46,11 @@ class AnnouncementResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('alt')
                     ->label('Judul'),
-                TextColumn::make('detail')
-                    ->label('File Pengumuman')
-                    ->url(fn($record) => asset('storage/' . $record->detail)) // Mengambil URL dengan benar
-                    ->formatStateUsing(fn($state) => basename($state)) // Hanya ambil nama file
-                    ->openUrlInNewTab()
+                ImageColumn::make('picture')
+                    ->label('Gambar')
+
             ])
             ->filters([
                 //
@@ -75,9 +75,9 @@ class AnnouncementResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAnnouncements::route('/'),
-            'create' => Pages\CreateAnnouncement::route('/create'),
-            'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
+            'index' => Pages\ListGalleries::route('/'),
+            'create' => Pages\CreateGallery::route('/create'),
+            'edit' => Pages\EditGallery::route('/{record}/edit'),
         ];
     }
 }

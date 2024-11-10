@@ -12,16 +12,18 @@ class PaginationHandler extends Handlers
     public static string | null $uri = '/';
     public static string | null $resource = NewsResource::class;
 
-    // public static bool $public = true;
+
     public function handler()
     {
         $query = static::getEloquentQuery();
         $model = static::getModel();
 
-        $query = QueryBuilder::for($query)
+        $allowedFilters = array_merge($this->getAllowedFilters() ?? [], ['news_type_id']);
+
+        $query = QueryBuilder::for(static::getEloquentQuery())
             ->allowedFields($this->getAllowedFields() ?? [])
             ->allowedSorts($this->getAllowedSorts() ?? [])
-            ->allowedFilters($this->getAllowedFilters() ?? [])
+            ->allowedFilters(['news_type_id'])
             ->allowedIncludes($this->getAllowedIncludes() ?? [])
             ->paginate(request()->query('per_page'))
             ->appends(request()->query());

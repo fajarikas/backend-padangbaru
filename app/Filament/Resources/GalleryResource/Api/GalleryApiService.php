@@ -1,14 +1,14 @@
 <?php
-namespace App\Filament\Resources\AnnouncementResource\Api;
+namespace App\Filament\Resources\GalleryResource\Api;
 
 use Rupadana\ApiService\ApiService;
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\GalleryResource;
 use Illuminate\Routing\Router;
 
 
-class AnnouncementApiService extends ApiService
+class GalleryApiService extends ApiService
 {
-    protected static string | null $resource = AnnouncementResource::class;
+    protected static string | null $resource = GalleryResource::class;
 
     public static function handlers() : array
     {

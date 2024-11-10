@@ -8,6 +8,7 @@ use App\Models\News;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -34,20 +35,30 @@ class NewsResource extends Resource
                     ->label('Judul')
                     ->required()
                     ->columnSpan('full'),
+                FileUpload::make('document')
+                    ->disk('public')
+                    ->preserveFilenames()
+                    ->directory('uploads/news')
+                    ->label('Cover')
+                    // ->acceptedFileTypes(['image/*'])
+                    ->required()
+                    ->columnSpan('full'),
+                Select::make('news_type_id')
+                    ->label('Tipe')
+                    ->relationship('news_type', 'type')
+                    ->columnSpan('full')
+                    // ->searchable()
+                    ->required(),
 
                 RichEditor::make('detail')
                     ->label('Konten')
                     ->required()
                     ->columnSpan('full'),
-
-                FileUpload::make('img')
-                    ->disk('public')
-                    ->preserveFilenames()
-                    ->directory('uploads/news')
-                    ->label('Cover')
-                    ->acceptedFileTypes(['image/*'])
+                RichEditor::make('summary')
+                    ->label('Rangkuman Berita')
                     ->required()
                     ->columnSpan('full'),
+
 
             ]);
     }
@@ -56,13 +67,14 @@ class NewsResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->label('Title'),
-                ImageColumn::make('img')
+                TextColumn::make('title')->label('Judul'),
+                TextColumn::make('news_type.type')->label('Tipe'),
+                ImageColumn::make('document')
                     ->disk('public')
                     ->url(fn($record) => asset('storage/uploads/news/' . $record->img))
                     ->label('Cover'),
-
-                TextColumn::make('detail')->label('Detail')
+                TextColumn::make('summary')->label('Rangkuman'),
+                TextColumn::make('detail')->label('Berita')
             ])
             ->filters([
                 //

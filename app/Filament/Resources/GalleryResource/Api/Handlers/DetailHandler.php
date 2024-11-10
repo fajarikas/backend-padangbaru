@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\FunctionaryResource\Api\Handlers;
+namespace App\Filament\Resources\GalleryResource\Api\Handlers;
 
 use App\Filament\Resources\SettingResource;
-use App\Filament\Resources\FunctionaryResource;
+use App\Filament\Resources\GalleryResource;
 use Rupadana\ApiService\Http\Handlers;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 class DetailHandler extends Handlers
 {
     public static string | null $uri = '/{id}';
-    public static string | null $resource = FunctionaryResource::class;
+    public static string | null $resource = GalleryResource::class;
 
 
     public function handler(Request $request)
     {
         $id = $request->route('id');
-
-        $query = static::getEloquentQuery()->with('title');
+        
+        $query = static::getEloquentQuery();
 
         $query = QueryBuilder::for(
             $query->where(static::getKeyName(), $id)
         )
-            ->allowedIncludes(['title'])
             ->first();
 
         if (!$query) return static::sendNotFoundResponse();

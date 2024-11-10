@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class NewsType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'document', 'detail', 'news_type_id', 'summary'];
+    protected $fillable = ['type'];
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
 
     public function news_type()
     {
-        return $this->belongsTo(NewsTYpe::class);
+        return $this->hasMany(News::class);
     }
 }

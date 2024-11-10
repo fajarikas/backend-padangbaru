@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\AnnouncementResource\Api\Handlers;
+namespace App\Filament\Resources\SocialMediaResource\Api\Handlers;
 
 use App\Filament\Resources\SettingResource;
-use App\Filament\Resources\AnnouncementResource;
+use App\Filament\Resources\SocialMediaResource;
 use Rupadana\ApiService\Http\Handlers;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class DetailHandler extends Handlers
 {
     public static string | null $uri = '/{id}';
-    public static string | null $resource = AnnouncementResource::class;
+    public static string | null $resource = SocialMediaResource::class;
 
 
     public function handler(Request $request)
