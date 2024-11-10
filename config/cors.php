@@ -19,7 +19,16 @@ return [
 
     'allowed_methods' => ['*'],
 
+    // 'allowed_origins' => [
+    //     'http://localhost:5173',
+    //     'https://padang-baru-frontend.vercel.app'
+    // ],
+
     'allowed_origins' => ['*'],
+
+    // 'allowed_origins_patterns' => [
+    //     '^https:\/\/.*\.vercel\.app$'
+    // ],
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +38,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
