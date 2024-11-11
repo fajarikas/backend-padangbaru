@@ -13,23 +13,17 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'log'), // Set default mailer to 'log' to avoid external dependencies
 
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
     |--------------------------------------------------------------------------
     |
-    | Here you may configure all of the mailers used by your application plus
-    | their respective settings. Several examples have been configured for
-    | you and you are free to add your own as your application requires.
-    |
-    | Laravel supports a variety of mail "transport" drivers to be used while
-    | sending an e-mail. You will specify which one you are using for your
-    | mailers below. You are free to add additional mailers as required.
-    |
-    | Supported: "smtp", "sendmail", "mailgun", "ses", "ses-v2",
-    |            "postmark", "log", "array", "failover", "roundrobin"
+    | Configure all mailers used by your application. Several examples are 
+    | provided here, and you can add more as needed. Available drivers:
+    | "smtp", "sendmail", "mailgun", "ses", "postmark", "log", "array", 
+    | "failover", "roundrobin"
     |
     */
 
@@ -40,29 +34,10 @@ return [
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'username' => env('MAIL_USERNAME', ''),
+            'password' => env('MAIL_PASSWORD', ''),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
-        ],
-
-        'ses' => [
-            'transport' => 'ses',
-        ],
-
-        'postmark' => [
-            'transport' => 'postmark',
-            // 'message_stream_id' => null,
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
-        ],
-
-        'mailgun' => [
-            'transport' => 'mailgun',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
         ],
 
         'sendmail' => [
@@ -72,11 +47,31 @@ return [
 
         'log' => [
             'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
+            'channel' => env('MAIL_LOG_CHANNEL', 'stack'), // Set default channel to 'stack' if MAIL_LOG_CHANNEL is not set
         ],
 
         'array' => [
             'transport' => 'array',
+        ],
+
+        // Comment out unused mailers to avoid potential issues
+        /*
+        'mailgun' => [
+            'transport' => 'mailgun',
+            'client' => [
+                'timeout' => 5,
+            ],
+        ],
+
+        'postmark' => [
+            'transport' => 'postmark',
+            'client' => [
+                'timeout' => 5,
+            ],
+        ],
+
+        'ses' => [
+            'transport' => 'ses',
         ],
 
         'failover' => [
@@ -94,6 +89,7 @@ return [
                 'postmark',
             ],
         ],
+        */
     ],
 
     /*
@@ -101,15 +97,14 @@ return [
     | Global "From" Address
     |--------------------------------------------------------------------------
     |
-    | You may wish for all e-mails sent by your application to be sent from
-    | the same address. Here, you may specify a name and address that is
-    | used globally for all e-mails that are sent by your application.
+    | Specify a name and address that is used globally for all e-mails sent
+    | by your application.
     |
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'), // Default email address
+        'name' => env('MAIL_FROM_NAME', 'Example'), // Default name
     ],
 
     /*
@@ -117,9 +112,7 @@ return [
     | Markdown Mail Settings
     |--------------------------------------------------------------------------
     |
-    | If you are using Markdown based email rendering, you may configure your
-    | theme and component paths here, allowing you to customize the design
-    | of the emails. Or, you may simply stick with the Laravel defaults!
+    | Configure theme and component paths for Markdown based email rendering.
     |
     */
 
